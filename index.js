@@ -26,6 +26,8 @@ const client = new Client({
   partials: [Partials.Channel, Partials.Message],
 });
 
+const { setupWatchdog } = require('./watchdog');
+
 const TOKEN          = process.env.CEZA_TOKEN;
 const GUILD_ID       = process.env.GUILD_ID;
 const CLIENT_ID      = '1505287686208880760';
@@ -73,6 +75,7 @@ async function sendLog(guild, embed) {
 client.once('ready', async () => {
   console.log(`✅ Ceza Bot aktif: ${client.user.tag}`);
   await registerCommands();
+  setupWatchdog(client, TOKEN, GUILD_ID);
 });
 
 // ── INTERACTION HANDLER ───────────────────
